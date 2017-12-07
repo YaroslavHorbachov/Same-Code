@@ -1,0 +1,37 @@
+
+function orderWeight(strng) {
+
+    const free = strng.split(' ');
+
+    let nfree = [];
+
+    for (let i=0; i < free.length; i++){
+        let numarray= free[i].split('');
+        let result = numarray.reduce((a,c) =>  a += +c ,0);
+        nfree.push([result,i])
+    }
+    nfree = nfree.sort((x,y) => x[0] - y[0])
+
+    nfree = nfree.map(x => x[1]).map(x => free[x])
+
+    for( let i = 0; i< nfree.length; i++){
+        if(nfree[i+1] === undefined) break;
+        let first = nfree[i];
+        let second = nfree[i+1];
+        let fr = first.split('').reduce((a,c) => a+=+c,0);
+        let sr = second.split('').reduce((a,c) => a+=+c,0);
+        if( fr === sr){
+            console.log(`FIRST ${first[0]} | SECOND ${+second[0]}`);
+            if(+first[0] > +second[0]){
+                [nfree[i],nfree[i+1]]= [nfree[i+1],nfree[i]]
+            }
+            if(+first[0] === +second[0]){
+                if(+first[1] > +second[1]){
+                    [nfree[i],nfree[i+1]]= [nfree[i+1],nfree[i]]
+                }
+            }
+        }
+    }
+    return nfree.join(' ')
+}
+
